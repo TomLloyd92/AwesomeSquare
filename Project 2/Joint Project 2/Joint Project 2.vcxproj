@@ -119,12 +119,14 @@
     <ClCompile Include="AwesomeSq.cpp" />
     <ClCompile Include="EvilSq.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="WorldSq.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AwesomeSq.h" />
     <ClInclude Include="EvilSq.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="GameBoard.h" />
+    <ClInclude Include="Globals.h" />
+    <ClInclude Include="WorldSq.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

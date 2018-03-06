@@ -8,6 +8,9 @@
 
 #include "AwesomeSq.h"   // include AwesomeSq header file
 #include "EvilSq.h"   // include EvilSq header file
+#include "WorldSq.h"	//Include World Square Header File
+#include "Globals.h" //include global header file
+
 
 class Game
 {
@@ -28,5 +31,10 @@ public:	  // declaration of member functions
 	void	draw();
 	void	setUpMaze();
 	void	drawMaze();
+
+	//Objects
+	WorldSq maze[MAX_SPACES][MAX_SPACES];
+	AwesomeSq player;
+	EvilSq enemys[MAX_NO_ENEMYS];
 };
 

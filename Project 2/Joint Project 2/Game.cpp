@@ -33,7 +33,6 @@
 
 #include "Game.h"   // include Game header file
 
-
 int main()
 {
 	Game aGame;
@@ -43,7 +42,7 @@ int main()
 	return 0;
 }
 
-Game::Game() : window(sf::VideoMode(400, 300), "Project 2")
+Game::Game() : window(sf::VideoMode(400, 400), "Project 2")
 // Default constructor
 {
 }
@@ -111,8 +110,27 @@ void Game::update()
 // This function takes the keyboard input and updates the game world
 {
 
-	// update any game variables here ...
+	//Nested for loop of the maze Updates and Set Positions
+	for (int row = 0; row < MAX_SPACES; row++)	//Go Through Every Row
+	{
+		for (int col = 0; col < MAX_SPACES; col++)	//Go Through Every Col
+		{
+			{
+				maze[row][col].update();	//Update the Square at that point
+				maze[row][col].setPosition(col, row);	//Set the position of each square
+			}		
+		}
+	}//END nested loop for maze Update and Set Positions
 
+	//Player update
+	player.update();
+	player.setPositionInArray(0, 0);
+
+	//Enemy Update
+	for (int i = 0; i < MAX_NO_ENEMYS; i++)
+	{
+		enemys[i].update();
+	}
 }
 
 void Game::draw()
@@ -121,8 +139,23 @@ void Game::draw()
 	// Clear the screen and draw your game sprites
 	window.clear();
 
-	m_message.setString("Project 2 : Game Play");
-	window.draw(m_message);  // write message to the screen
+	//Nested for loop of the maze
+	for (int row = 0; row < MAX_SPACES; row++)	//Go Through Every Row
+	{
+		for (int col = 0; col < MAX_SPACES; col++)	//Go Through Every Col
+		{
+			window.draw(maze[row][col].getSprite());	//Draw The square at that point
+		}
+	}//END nested loop for maze Drawing
+
+	//Draw Enemy
+	for (int i = 0; i < MAX_NO_ENEMYS; i++)
+	{
+		window.draw(enemys[i].getSprite());
+	}
+
+	//Draw Player
+	window.draw(player.getSprite());
 
 	window.display();
 }
