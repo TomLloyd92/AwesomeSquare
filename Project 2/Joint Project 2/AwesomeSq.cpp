@@ -16,22 +16,22 @@ void AwesomeSq::setup()
 void AwesomeSq::loadTextures()
 {
 	//Up
-	if (!playerTextureUp.loadFromFile("ASSETS/Sprites/playerUp.png"))
+	if (!playerTextureUp.loadFromFile("ASSETS/Sprites/walkUp1.png"))
 	{
 		std::cout << "Load Failed: Player Up!" << std::endl;
 	}
 	//Down
-	if (!playerTextureDown.loadFromFile("ASSETS/Sprites/playerDown.png"))
+	if (!playerTextureDown.loadFromFile("ASSETS/Sprites/walkDown1.png"))
 	{
 		std::cout << "Load Failed: Player Down!" << std::endl;
 	}
 	//Right
-	if (!playerTextureRight.loadFromFile("ASSETS/Sprites/playerRight.png"))
+	if (!playerTextureRight.loadFromFile("ASSETS/Sprites/walkRight1.png"))
 	{
 		std::cout << "Load Failed: Player Right!" << std::endl;
 	}
 	//Left
-	if (!playerTextureLeft.loadFromFile("ASSETS/Sprites/playerLeft.png"))
+	if (!playerTextureLeft.loadFromFile("ASSETS/Sprites/walkLeft1.png"))
 	{
 		std::cout << "Load Failed: Player Left!" << std::endl;
 	}
@@ -60,7 +60,15 @@ void AwesomeSq::update()
 		playerSprite.setTexture(playerTextureLeft);
 		if (col > 0)
 		{
+			direction = WEST;
 			col--;
+
+			/*
+			if (maze[row][col - 1].getIsWallSquare() == false)
+			{
+				
+			}
+			*/
 		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
@@ -68,7 +76,17 @@ void AwesomeSq::update()
 		playerSprite.setTexture(playerTextureRight);
 		if (col < MAX_SPACES - 1)
 		{
+			direction = EAST;
 			col++;
+
+			/*
+			if (maze[row][col + 1].getIsWallSquare() == false)
+			{
+			
+			}
+			*/
+
+	
 		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
@@ -76,7 +94,15 @@ void AwesomeSq::update()
 		playerSprite.setTexture(playerTextureUp);
 		if (row > 0)
 		{
+			direction = NORTH;
 			row--;
+
+			/*
+			if (maze[row - 1][col].getIsWallSquare() == false)
+			{
+			
+			}
+			*/
 		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
@@ -84,6 +110,8 @@ void AwesomeSq::update()
 		playerSprite.setTexture(playerTextureDown);
 		if (row < MAX_SPACES - 1)
 		{
+			direction = SOUTH;
+
 			row++;
 		}
 	}

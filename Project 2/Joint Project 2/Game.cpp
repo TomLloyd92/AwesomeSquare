@@ -109,7 +109,7 @@ void Game::run()
 void Game::update()
 // This function takes the keyboard input and updates the game world
 {
-
+	//Setting Up Maze
 	//Nested for loop of the maze Updates and Set Positions
 	for (int row = 0; row < MAX_SPACES; row++)	//Go Through Every Row
 	{
@@ -121,6 +121,40 @@ void Game::update()
 			}		
 		}
 	}//END nested loop for maze Update and Set Positions
+
+	//Set up outside walls
+	for (int row = 0, col = 0; col < MAX_SPACES; col++)	//Set up Top Wall
+	{
+		maze[row][col].setIsWallSquare(true);
+	}
+	for (int row = 0, col = MAX_SPACES - 1; row < MAX_SPACES; row++)
+	{
+		maze[row][col].setIsWallSquare(true);
+	}
+	for (int row = MAX_SPACES - 1, col = 0; col < MAX_SPACES; col++)
+	{
+		maze[row][col].setIsWallSquare(true);
+	}
+	for (int row = 0, col = 0; row < MAX_SPACES; row++)
+	{
+		maze[row][col].setIsWallSquare(true);
+	}//End Outside Walls
+	
+	//Internal Maze
+	for (int row = 3, col = 3; row < 9; row++)
+	{
+		maze[row][col].setIsWallSquare(true);
+	}
+	for (int row = 3, col = 6; row < 9; row++)
+	{
+		maze[row][col].setIsWallSquare(true);
+	}
+	for (int row = 3, col = 9; row < 9; row++)
+	{
+		maze[row][col].setIsWallSquare(true);
+	}//end Internal Maze
+
+
 
 	//Player update
 	player.update();

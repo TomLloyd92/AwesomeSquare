@@ -9,3 +9,9 @@ const int MAX_SPACES = 12;
 
 //Maximum Number Of Enemys
 const int MAX_NO_ENEMYS = 5;
+
+//Direction
+const int NORTH = 1;
+const int EAST = 2;
+const int SOUTH = 3;
+const int WEST = 4;

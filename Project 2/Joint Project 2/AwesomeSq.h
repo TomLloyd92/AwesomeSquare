@@ -3,6 +3,7 @@
 #include <iostream>
 #include "SFML\Graphics.hpp"
 #include "Globals.h"
+#include "WorldSq.h"
 
 class AwesomeSq
 {
@@ -18,8 +19,10 @@ private:
 	int xPos = 0;
 	int yPos = 0;
 
-	int row = 0;
-	int col = 0;
+	int row = 1;
+	int col = 1;
+
+	int direction;
 
 public:
 	//Default Constructor
@@ -30,6 +33,9 @@ public:
 	void loadTextures();
 	void setSprite();
 	void setPositionInArray(double t_xPos, double t_yPos);
+
+	//void getTheMazeArray(WorldSq t_theArray[MAX_SPACES][MAX_SPACES]);
+
 	sf::Sprite getSprite();
 
 	//Update

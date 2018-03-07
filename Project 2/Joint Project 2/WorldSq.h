@@ -8,10 +8,13 @@ class WorldSq
 private:
 	//Texture and Sprite
 	sf::Texture squareTexture;
+	sf::Texture wallTexture;
 	sf::Sprite squareSprite;
 
 	int xPos = 0;
 	int yPos = 0;
+
+	bool isWallSquare = false;
 
 public:
 	//Default Constructor
@@ -23,6 +26,9 @@ public:
 	void setSprite();
 	void setPosition(double t_xPos, double t_yPos);
 	sf::Sprite getSprite();
+
+	bool setIsWallSquare(bool t_IsWallSquare);
+	bool getIsWallSquare();
 
 	//Update
 	void update();

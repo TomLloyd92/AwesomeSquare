@@ -21,7 +21,7 @@ void EvilSq::setup()
 void EvilSq::loadTextures()
 {
 	//Up
-	if (!enemyTextureUp.loadFromFile("ASSETS/SPRITES/enemySquare.png"))
+	if (!enemyTextureUp.loadFromFile("ASSETS/SPRITES/beeFront.png"))
 	{
 		std::cout << "Load Failed: Player Up!" << std::endl;
 	}
