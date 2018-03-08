@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <SFML\Graphics.hpp>
-
+#include "Globals.h"
 
 class EvilSq
 {
@@ -18,6 +18,18 @@ class EvilSq
 		int xPos = 0;
 		int yPos = 0;
 
+		int row = 0;
+		int col = 0;
+
+		int direction = 0;
+
+		int timer = 0;
+
+		bool wallSquareLeft = false;
+		bool wallSquareRight = false;
+		bool wallSquareUp = false;
+		bool wallSquareDown = false;
+
 	public:
 		//Default Constructor
 		EvilSq();
@@ -27,8 +39,19 @@ class EvilSq
 		void loadTextures();
 		void setSprite();
 		void setPositionInArray(double t_xPos, double t_yPos);
+
+		int getRow();
+		int getCol();
+
 		sf::Sprite getSprite();
 
 		//Update
 		void update();
+
+		void checkForWallLeft(bool t_isAWall);
+		void checkForWallRight(bool t_isAWall);
+		void checkForWallUp(bool t_isAWall);
+		void checkForWallDown(bool t_isAWall);
+
+
 };

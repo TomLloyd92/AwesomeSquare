@@ -48,76 +48,123 @@ void AwesomeSq::setPositionInArray(double t_col, double t_row)
 	yPos = t_row * 32;
 }
 
+int AwesomeSq::getRow()
+{
+	return row;
+}
+
+int AwesomeSq::getCol()
+{
+	return col;
+}
+
 sf::Sprite AwesomeSq::getSprite()
 {
 	return sf::Sprite(playerSprite);
 }
 
+void AwesomeSq::checkForWallLeft(bool t_isAWall)
+{
+	wallSquareLeft = t_isAWall; 
+}
+
+void AwesomeSq::checkForWallRight(bool t_isAWall)
+{
+	wallSquareRight = t_isAWall;
+}
+
+void AwesomeSq::checkForWallUp(bool t_isAWall)
+{
+	wallSquareUp = t_isAWall;
+}
+
+void AwesomeSq::checkForWallDown(bool t_isAWall)
+{
+	wallSquareDown = t_isAWall;
+}
+
+void AwesomeSq::isAlive(bool t_isAlive)
+{
+	alive = t_isAlive;
+}
+
+bool AwesomeSq::getAlive()
+{
+	return alive;
+}
+
 void AwesomeSq::update()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	if (timer > 0)
 	{
-		playerSprite.setTexture(playerTextureLeft);
-		if (col > 0)
-		{
-			direction = WEST;
-			col--;
+		timer--;
+	}
 
-			/*
-			if (maze[row][col - 1].getIsWallSquare() == false)
+	if (timer == 0)
+	{
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		{
+			timer = TIMER_MAX;
+			playerSprite.setTexture(playerTextureLeft);
+			if (col > 0)
 			{
-				
-			}
-			*/
-		}
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-	{
-		playerSprite.setTexture(playerTextureRight);
-		if (col < MAX_SPACES - 1)
-		{
-			direction = EAST;
-			col++;
+				direction = WEST;
 
-			/*
-			if (maze[row][col + 1].getIsWallSquare() == false)
+
+				if (wallSquareLeft == false)	//Check for Wall Block
+				{
+					col--;	//Move Player
+				}
+			}
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		{
+			timer = TIMER_MAX;
+			playerSprite.setTexture(playerTextureRight);
+			if (col < MAX_SPACES - 1)
 			{
-			
+				direction = EAST;
+
+				if (wallSquareRight == false)	//Check for Wall Block
+				{
+					col++;	//Move Player
+				}
+
 			}
-			*/
-
-	
 		}
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-	{
-		playerSprite.setTexture(playerTextureUp);
-		if (row > 0)
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{
-			direction = NORTH;
-			row--;
-
-			/*
-			if (maze[row - 1][col].getIsWallSquare() == false)
+			timer = TIMER_MAX;
+			playerSprite.setTexture(playerTextureUp);
+			if (row > 0)
 			{
-			
+				direction = NORTH;
+
+				if (wallSquareUp == false)	//Check for Wall Block
+				{
+					row--;	//Move Player
+				}
 			}
-			*/
 		}
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-	{
-		playerSprite.setTexture(playerTextureDown);
-		if (row < MAX_SPACES - 1)
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 		{
-			direction = SOUTH;
+			timer = TIMER_MAX;
+			playerSprite.setTexture(playerTextureDown);
+			if (row < MAX_SPACES - 1)
+			{
+				direction = SOUTH;
 
-			row++;
+				if (wallSquareDown == false)
+				{
+					row++;
+				}
+			}
 		}
 	}
 
-	xPos = col * 32;
-	yPos = row * 32;
+	xPos = col * 32.0;
+	yPos = row * 32.0;
 
 	playerSprite.setPosition(xPos, yPos);
 

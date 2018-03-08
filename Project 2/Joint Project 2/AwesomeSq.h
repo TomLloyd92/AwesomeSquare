@@ -3,7 +3,7 @@
 #include <iostream>
 #include "SFML\Graphics.hpp"
 #include "Globals.h"
-#include "WorldSq.h"
+
 
 class AwesomeSq
 {
@@ -16,11 +16,13 @@ private:
 
 	sf::Sprite playerSprite;
 
-	int xPos = 0;
-	int yPos = 0;
+	double xPos = 0;
+	double yPos = 0;
 
 	int row = 1;
 	int col = 1;
+
+	int timer = 0;
 
 	int direction;
 
@@ -34,9 +36,24 @@ public:
 	void setSprite();
 	void setPositionInArray(double t_xPos, double t_yPos);
 
-	//void getTheMazeArray(WorldSq t_theArray[MAX_SPACES][MAX_SPACES]);
+	int getRow();
+	int getCol();
 
 	sf::Sprite getSprite();
+
+	void checkForWallLeft(bool t_isAWall);
+	void checkForWallRight(bool t_isAWall);
+	void checkForWallUp(bool t_isAWall);
+	void checkForWallDown(bool t_isAWall);
+
+	bool wallSquareLeft = false;
+	bool wallSquareRight = false;
+	bool wallSquareUp = false;
+	bool wallSquareDown = false;
+
+	bool alive = true;
+	void isAlive(bool t_isAlive);
+	bool getAlive();
 
 	//Update
 	void update();

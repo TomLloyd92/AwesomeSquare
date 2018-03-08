@@ -155,15 +155,34 @@ void Game::update()
 	}//end Internal Maze
 
 
-
 	//Player update
-	player.update();
-	player.setPositionInArray(0, 0);
-
-	//Enemy Update
-	for (int i = 0; i < MAX_NO_ENEMYS; i++)
+	if (player.getAlive() == true)
 	{
-		enemys[i].update();
+		player.update();	//Update the Player
+		//Checking surrounding squares
+		player.checkForWallLeft(maze[player.getRow()][player.getCol() - 1].getIsWallSquare());	//Checking for walls LEFT
+		player.checkForWallRight(maze[player.getRow()][player.getCol() + 1].getIsWallSquare());	//Checking for walls RIGHT
+		player.checkForWallUp(maze[player.getRow() - 1][player.getCol()].getIsWallSquare());	//checlomg for walls UP
+		player.checkForWallDown(maze[player.getRow() + 1][player.getCol()].getIsWallSquare());	//checking for walls DOWN
+
+		//Enemy Update
+		for (int i = 0; i < MAX_NO_ENEMYS; i++)
+		{
+			enemys[i].checkForWallLeft(maze[enemys[i].getRow()][enemys[i].getCol() - 1].getIsWallSquare());		//Checking for Walls Left
+			enemys[i].checkForWallRight(maze[enemys[i].getRow()][enemys[i].getCol() + 1].getIsWallSquare());	//Checking for Walls Right
+			enemys[i].checkForWallUp(maze[enemys[i].getRow() - 1][enemys[i].getCol()].getIsWallSquare());		//Checking for Walls Up
+			enemys[i].checkForWallDown(maze[enemys[i].getRow() + 1][enemys[i].getCol()].getIsWallSquare());		//Checking for Walls Down
+			enemys[i].update();	//Update all the enemys
+		}
+
+		//Collision
+		for (int index = 0; index < MAX_NO_ENEMYS; index++)
+		{
+			if (enemys[index].getRow() == player.getRow() && enemys[index].getCol() == player.getCol())
+			{
+				player.isAlive(false);
+			}
+		}
 	}
 }
 

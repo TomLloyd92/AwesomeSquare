@@ -15,3 +15,6 @@ const int NORTH = 1;
 const int EAST = 2;
 const int SOUTH = 3;
 const int WEST = 4;
+
+//Timer
+const int TIMER_MAX = 5;

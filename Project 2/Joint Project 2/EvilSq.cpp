@@ -9,7 +9,27 @@ EvilSq::EvilSq()
 	int randX = rand() % 12;
 	int randY = rand() % 12;
 
-	setPositionInArray(randX, randY);
+
+	row = rand() % 12;
+	col = rand() % 12;
+
+	
+	if (row == 0 || row == 11)
+	{
+		row = 5;
+	}
+
+	if (col == 0 ||col == 11)
+	{
+		col = 5;
+	}
+	
+
+	//setPositionInArray(randX, randY);
+
+	//direction = rand() % 4;
+
+	direction = NORTH;
 }
 
 void EvilSq::setup()
@@ -55,6 +75,17 @@ void EvilSq::setPositionInArray(double t_xPos, double t_yPos)
 {
 	xPos = t_xPos * 32;
 	yPos = t_yPos * 32;
+	enemySprite.setPosition(xPos, yPos);
+}
+
+int EvilSq::getRow()
+{
+	return row;
+}
+
+int EvilSq::getCol()
+{
+	return col;
 }
 
 sf::Sprite EvilSq::getSprite()
@@ -64,5 +95,64 @@ sf::Sprite EvilSq::getSprite()
 
 void EvilSq::update()
 {
-	enemySprite.setPosition(xPos, yPos);
+
+	sf::Vector2f pos = { (col * 32.0f), (row * 32.0f) };
+
+	if (timer > 0)
+	{
+		timer--;
+	}
+
+	if (timer == 0)
+	{
+		if (direction == NORTH && wallSquareUp == false)
+		{
+			row--;
+			timer = TIMER_MAX;
+		}
+		else if (direction == SOUTH && wallSquareDown == false)
+		{
+			row++;
+			timer = TIMER_MAX;
+		}
+		else if (direction == EAST && wallSquareRight == false)
+		{
+			col++;
+			timer = TIMER_MAX;
+		}
+		else if (direction == WEST && wallSquareLeft == false)
+		{
+			col--;
+			timer = TIMER_MAX;
+		}
+		else
+		{
+			direction = rand() % 4 + 1;
+			timer = TIMER_MAX;
+		}
+	}
+
+
+
+	enemySprite.setPosition(pos);
+}
+
+void EvilSq::checkForWallLeft(bool t_isAWall)
+{
+	wallSquareLeft = t_isAWall;
+}
+
+void EvilSq::checkForWallRight(bool t_isAWall)
+{
+	wallSquareRight = t_isAWall;
+}
+
+void EvilSq::checkForWallUp(bool t_isAWall)
+{
+	wallSquareUp = t_isAWall;
+}
+
+void EvilSq::checkForWallDown(bool t_isAWall)
+{
+	wallSquareDown = t_isAWall;
 }
