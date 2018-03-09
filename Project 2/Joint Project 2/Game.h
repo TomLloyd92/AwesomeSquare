@@ -32,6 +32,8 @@ public:	  // declaration of member functions
 	void	setUpMaze();
 	void	drawMaze();
 
+	bool gameSetUp = false;
+
 	//Objects
 	WorldSq maze[MAX_SPACES][MAX_SPACES];
 	AwesomeSq player;

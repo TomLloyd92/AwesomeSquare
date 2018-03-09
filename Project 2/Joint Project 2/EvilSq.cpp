@@ -7,9 +7,7 @@ EvilSq::EvilSq()
 	//Setup Sprites/textures
 	setup();
 
-	//Random 
-	//int randX = rand() % 12;
-	//int randY = rand() % 12;
+	alive = true;
 
 	row = rand() % 12;
 	col = rand() % 12;
@@ -28,14 +26,13 @@ EvilSq::EvilSq()
 
 	xPos = maxXpos;
 	yPos = maxYpos;
-	
-	
-
-	//setPositionInArray(randX, randY);
-
-	//direction = rand() % 4;
 
 	direction = NORTH;
+}
+
+void EvilSq::kill()
+{
+	alive = false;
 }
 
 void EvilSq::setup()
@@ -184,4 +181,9 @@ void EvilSq::checkForWallUp(bool t_isAWall)
 void EvilSq::checkForWallDown(bool t_isAWall)
 {
 	wallSquareDown = t_isAWall;
+}
+
+bool EvilSq::getAlive()
+{
+	return alive;
 }

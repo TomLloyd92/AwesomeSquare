@@ -1,4 +1,4 @@
 ﻿  Game.cpp
-c:\users\c00231308\awesomesquare\project 2\joint project 2\game.cpp(69): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Joint Project 2.vcxproj -> C:\Users\c00231308\AwesomeSquare\Project 2\Debug\Joint Project 2.exe
-  Joint Project 2.vcxproj -> C:\Users\c00231308\AwesomeSquare\Project 2\Debug\Joint Project 2.pdb (Partial PDB)
+c:\awesomesquare\project 2\joint project 2\game.cpp(69): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Joint Project 2.vcxproj -> C:\AwesomeSquare\Project 2\Debug\Joint Project 2.exe
+  Joint Project 2.vcxproj -> C:\AwesomeSquare\Project 2\Debug\Joint Project 2.pdb (Partial PDB)

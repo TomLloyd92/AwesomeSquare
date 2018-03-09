@@ -101,6 +101,21 @@ bool AwesomeSq::getMoveWallLeft()
 	return moveWallLeft;
 }
 
+bool AwesomeSq::getMoveWallRight()
+{
+	return moveWallRight;
+}
+
+bool AwesomeSq::getMoveWallUp()
+{
+	return moveWallUp;
+}
+
+bool AwesomeSq::getMoveWallDown()
+{
+	return moveWallDown;
+}
+
 void AwesomeSq::resetAllWallMove()
 {
 	moveWallLeft = false;
@@ -187,6 +202,18 @@ void AwesomeSq::update()
 			if (direction == WEST && wallSquareLeft == true)
 			{
 				moveWallLeft = true;
+			}
+			if (direction == NORTH && wallSquareUp == true)
+			{
+				moveWallUp = true;
+			}
+			if (direction == EAST && wallSquareRight == true)
+			{
+				moveWallRight = true;
+			}
+			if (direction == SOUTH && wallSquareDown == true)
+			{
+				moveWallDown = true;
 			}
 		}
 	}

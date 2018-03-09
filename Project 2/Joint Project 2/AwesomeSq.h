@@ -67,9 +67,9 @@ public:
 	bool moveWallDown = false;
 
 	bool getMoveWallLeft();
-	//bool getMoveWallRight();
-	//bool getMoveWallUp();
-	//bool getMoveWallDown();
+	bool getMoveWallRight();
+	bool getMoveWallUp();
+	bool getMoveWallDown();
 
 	void resetAllWallMove();
 

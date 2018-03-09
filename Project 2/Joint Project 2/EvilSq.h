@@ -24,6 +24,8 @@ class EvilSq
 		int row = 0;
 		int col = 0;
 
+		bool alive;
+
 		int direction = 0;
 
 		int timer = 0;
@@ -36,6 +38,7 @@ class EvilSq
 	public:
 		//Default Constructor
 		EvilSq();
+		void kill();
 
 		//SetUp Textures and Sprites
 		void setup();
@@ -55,6 +58,8 @@ class EvilSq
 		void checkForWallRight(bool t_isAWall);
 		void checkForWallUp(bool t_isAWall);
 		void checkForWallDown(bool t_isAWall);
+
+		bool getAlive();
 
 
 };

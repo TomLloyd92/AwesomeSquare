@@ -109,6 +109,10 @@ void Game::run()
 void Game::update()
 // This function takes the keyboard input and updates the game world
 {
+	if (gameSetUp == false)
+	{
+		setUpMaze();
+	}
 	//Setting Up Maze
 	//Nested for loop of the maze Updates and Set Positions
 	for (int row = 0; row < MAX_SPACES; row++)	//Go Through Every Row
@@ -122,38 +126,6 @@ void Game::update()
 		}
 	}//END nested loop for maze Update and Set Positions
 
-	//Set up outside walls
-	for (int row = 0, col = 0; col < MAX_SPACES; col++)	//Set up Top Wall
-	{
-		maze[row][col].setIsWallSquare(true);
-	}
-	for (int row = 0, col = MAX_SPACES - 1; row < MAX_SPACES; row++)
-	{
-		maze[row][col].setIsWallSquare(true);
-	}
-	for (int row = MAX_SPACES - 1, col = 0; col < MAX_SPACES; col++)
-	{
-		maze[row][col].setIsWallSquare(true);
-	}
-	for (int row = 0, col = 0; row < MAX_SPACES; row++)
-	{
-		maze[row][col].setIsWallSquare(true);
-	}//End Outside Walls
-	
-	//Internal Maze
-	for (int row = 3, col = 3; row < 9; row++)
-	{
-		maze[row][col].setIsWallSquare(true);
-	}
-	for (int row = 3, col = 6; row < 9; row++)
-	{
-		maze[row][col].setIsWallSquare(true);
-	}
-	for (int row = 3, col = 9; row < 9; row++)
-	{
-		maze[row][col].setIsWallSquare(true);
-	}//end Internal Maze
-
 	//Moving the Walls
 	if (player.getMoveWallLeft() == true)
 	{
@@ -161,6 +133,29 @@ void Game::update()
 		maze[player.getRow()][player.getCol() - 1].setIsWallSquare(false);
 		player.resetAllWallMove();
 	}
+	
+	if (player.getMoveWallRight() == true)
+	{
+		maze[player.getRow()][player.getCol() + 2].setIsWallSquare(true);
+		maze[player.getRow()][player.getCol() + 1].setIsWallSquare(false);
+		player.resetAllWallMove();
+	}
+
+	if (player.getMoveWallUp() == true)
+	{
+		maze[player.getRow() - 2][player.getCol()].setIsWallSquare(true);
+		maze[player.getRow() - 1][player.getCol()].setIsWallSquare(false);
+		player.resetAllWallMove();
+	}
+	
+	if (player.getMoveWallDown() == true)
+	{
+		maze[player.getRow() + 2][player.getCol()].setIsWallSquare(true);
+		maze[player.getRow() + 1][player.getCol()].setIsWallSquare(false);
+		player.resetAllWallMove();
+	}
+	
+	
 
 	//Player update
 	if (player.getAlive() == true)
@@ -175,19 +170,32 @@ void Game::update()
 		//Enemy Update
 		for (int i = 0; i < MAX_NO_ENEMYS; i++)
 		{
-			enemys[i].checkForWallLeft(maze[enemys[i].getRow()][enemys[i].getCol() - 1].getIsWallSquare());		//Checking for Walls Left
-			enemys[i].checkForWallRight(maze[enemys[i].getRow()][enemys[i].getCol() + 1].getIsWallSquare());	//Checking for Walls Right
-			enemys[i].checkForWallUp(maze[enemys[i].getRow() - 1][enemys[i].getCol()].getIsWallSquare());		//Checking for Walls Up
-			enemys[i].checkForWallDown(maze[enemys[i].getRow() + 1][enemys[i].getCol()].getIsWallSquare());		//Checking for Walls Down
-			enemys[i].update();	//Update all the enemys
+			{
+				enemys[i].checkForWallLeft(maze[enemys[i].getRow()][enemys[i].getCol() - 1].getIsWallSquare());		//Checking for Walls Left
+				enemys[i].checkForWallRight(maze[enemys[i].getRow()][enemys[i].getCol() + 1].getIsWallSquare());	//Checking for Walls Right
+				enemys[i].checkForWallUp(maze[enemys[i].getRow() - 1][enemys[i].getCol()].getIsWallSquare());		//Checking for Walls Up
+				enemys[i].checkForWallDown(maze[enemys[i].getRow() + 1][enemys[i].getCol()].getIsWallSquare());		//Checking for Walls Down
+				enemys[i].update();	//Update all the enemys
+			}
 		}
 
-		//Collision
+		//Collision Player and Enemys
 		for (int index = 0; index < MAX_NO_ENEMYS; index++)
 		{
 			if (enemys[index].getRow() == player.getRow() && enemys[index].getCol() == player.getCol())
 			{
 				player.isAlive(false);
+			}
+		}
+
+		for (int i = 0; i < MAX_NO_ENEMYS; i++)
+		{
+			int col = enemys[i].getRow();
+			int row = enemys[i].getCol();
+
+			if (maze[row][col].getIsWallSquare() == true)
+			{
+				enemys[i].kill();
 			}
 		}
 	}
@@ -211,7 +219,10 @@ void Game::draw()
 	//Draw Enemy
 	for (int i = 0; i < MAX_NO_ENEMYS; i++)
 	{
+		//if (enemys[i].getAlive() == true)
+
 		window.draw(enemys[i].getSprite());
+
 	}
 
 	//Draw Player
@@ -222,7 +233,38 @@ void Game::draw()
 
 void Game::setUpMaze()
 {
+	//Set up outside walls
+	for (int row = 0, col = 0; col < MAX_SPACES; col++)	//Set up Top Wall
+	{
+		maze[row][col].setIsWallSquare(true);
+	}
+	for (int row = 0, col = MAX_SPACES - 1; row < MAX_SPACES; row++)
+	{
+		maze[row][col].setIsWallSquare(true);
+	}
+	for (int row = MAX_SPACES - 1, col = 0; col < MAX_SPACES; col++)
+	{
+		maze[row][col].setIsWallSquare(true);
+	}
+	for (int row = 0, col = 0; row < MAX_SPACES; row++)
+	{
+		maze[row][col].setIsWallSquare(true);
+	}//End Outside Walls
 
+	 //Internal Maze
+	for (int row = 3, col = 3; row < 9; row++)
+	{
+		maze[row][col].setIsWallSquare(true);
+	}
+	for (int row = 3, col = 6; row < 9; row++)
+	{
+		maze[row][col].setIsWallSquare(true);
+	}
+	for (int row = 3, col = 9; row < 9; row++)
+	{
+		maze[row][col].setIsWallSquare(true);
+	}//end Internal Maze
+	gameSetUp = true;
 }
 
 
