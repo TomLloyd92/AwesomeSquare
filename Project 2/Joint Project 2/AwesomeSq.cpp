@@ -5,6 +5,9 @@
 AwesomeSq::AwesomeSq()
 {
 	setup();
+
+	xPos = 32;
+	yPos = 32;
 }
 
 void AwesomeSq::setup()
@@ -93,6 +96,19 @@ bool AwesomeSq::getAlive()
 	return alive;
 }
 
+bool AwesomeSq::getMoveWallLeft()
+{
+	return moveWallLeft;
+}
+
+void AwesomeSq::resetAllWallMove()
+{
+	moveWallLeft = false;
+	moveWallRight = false;
+	moveWallUp = false;
+	moveWallDown = false;
+}
+
 void AwesomeSq::update()
 {
 	if (timer > 0)
@@ -102,69 +118,102 @@ void AwesomeSq::update()
 
 	if (timer == 0)
 	{
-
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		if (xPos == maxXPos && yPos == maxYPos)
 		{
-			timer = TIMER_MAX;
-			playerSprite.setTexture(playerTextureLeft);
-			if (col > 0)
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 			{
-				direction = WEST;
-
-
-				if (wallSquareLeft == false)	//Check for Wall Block
+				timer = TIMER_MAX;
+				playerSprite.setTexture(playerTextureLeft);
+				if (col > 0)
 				{
-					col--;	//Move Player
+					direction = WEST;
+
+
+					if (wallSquareLeft == false)	//Check for Wall Block
+					{
+						col--;	//Move Player
+					}
+				}
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+			{
+				timer = TIMER_MAX;
+				playerSprite.setTexture(playerTextureRight);
+				if (col < MAX_SPACES - 1)
+				{
+					direction = EAST;
+
+					if (wallSquareRight == false)	//Check for Wall Block
+					{
+						col++;	//Move Player
+					}
+
+				}
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+			{
+				timer = TIMER_MAX;
+				playerSprite.setTexture(playerTextureUp);
+				if (row > 0)
+				{
+					direction = NORTH;
+
+					if (wallSquareUp == false)	//Check for Wall Block
+					{
+						row--;	//Move Player
+					}
+				}
+			}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+			{
+				timer = TIMER_MAX;
+				playerSprite.setTexture(playerTextureDown);
+				if (row < MAX_SPACES - 1)
+				{
+					direction = SOUTH;
+
+					if (wallSquareDown == false)
+					{
+						row++;
+					}
 				}
 			}
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	
+		//Kick: if there is a wall in the facing direction and space is clicked the wall moves in direction facing player by 1 
+		//as long as row or col isnt = to 0
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 		{
-			timer = TIMER_MAX;
-			playerSprite.setTexture(playerTextureRight);
-			if (col < MAX_SPACES - 1)
+			if (direction == WEST && wallSquareLeft == true)
 			{
-				direction = EAST;
-
-				if (wallSquareRight == false)	//Check for Wall Block
-				{
-					col++;	//Move Player
-				}
-
-			}
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		{
-			timer = TIMER_MAX;
-			playerSprite.setTexture(playerTextureUp);
-			if (row > 0)
-			{
-				direction = NORTH;
-
-				if (wallSquareUp == false)	//Check for Wall Block
-				{
-					row--;	//Move Player
-				}
-			}
-		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		{
-			timer = TIMER_MAX;
-			playerSprite.setTexture(playerTextureDown);
-			if (row < MAX_SPACES - 1)
-			{
-				direction = SOUTH;
-
-				if (wallSquareDown == false)
-				{
-					row++;
-				}
+				moveWallLeft = true;
 			}
 		}
 	}
 
-	xPos = col * 32.0;
-	yPos = row * 32.0;
+	//Max Position of the x and y axis
+	maxXPos = col * 32.0;
+	maxYPos = row * 32.0;
+
+	//Move the player with fluid Motion
+	if (xPos < maxXPos)
+	{
+		xPos++;	//Right
+	}
+	if (yPos < maxYPos)
+	{
+		yPos++;	//Down
+	}
+	if (xPos > maxXPos)
+	{
+		xPos--;	//Left
+	}
+	if(yPos > maxYPos)
+	{
+		yPos--;	//Right
+	}
+
+
 
 	playerSprite.setPosition(xPos, yPos);
 

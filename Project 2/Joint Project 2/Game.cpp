@@ -154,6 +154,13 @@ void Game::update()
 		maze[row][col].setIsWallSquare(true);
 	}//end Internal Maze
 
+	//Moving the Walls
+	if (player.getMoveWallLeft() == true)
+	{
+		maze[player.getRow()][player.getCol() - 2].setIsWallSquare(true);
+		maze[player.getRow()][player.getCol() - 1].setIsWallSquare(false);
+		player.resetAllWallMove();
+	}
 
 	//Player update
 	if (player.getAlive() == true)

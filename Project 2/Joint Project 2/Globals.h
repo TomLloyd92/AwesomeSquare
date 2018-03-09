@@ -17,4 +17,4 @@ const int SOUTH = 3;
 const int WEST = 4;
 
 //Timer
-const int TIMER_MAX = 5;
+const int TIMER_MAX = 10;

@@ -4,16 +4,16 @@
 
 EvilSq::EvilSq()
 {
+	//Setup Sprites/textures
 	setup();
 
-	int randX = rand() % 12;
-	int randY = rand() % 12;
-
+	//Random 
+	//int randX = rand() % 12;
+	//int randY = rand() % 12;
 
 	row = rand() % 12;
 	col = rand() % 12;
 
-	
 	if (row == 0 || row == 11)
 	{
 		row = 5;
@@ -23,6 +23,12 @@ EvilSq::EvilSq()
 	{
 		col = 5;
 	}
+	maxXpos = col * 32.0;
+	maxYpos = row * 32.0;
+
+	xPos = maxXpos;
+	yPos = maxYpos;
+	
 	
 
 	//setPositionInArray(randX, randY);
@@ -96,7 +102,7 @@ sf::Sprite EvilSq::getSprite()
 void EvilSq::update()
 {
 
-	sf::Vector2f pos = { (col * 32.0f), (row * 32.0f) };
+	//sf::Vector2f pos = { (col * 32.0f), (row * 32.0f) };
 
 	if (timer > 0)
 	{
@@ -105,36 +111,59 @@ void EvilSq::update()
 
 	if (timer == 0)
 	{
-		if (direction == NORTH && wallSquareUp == false)
+		if (maxXpos == xPos && maxYpos == yPos)
 		{
-			row--;
-			timer = TIMER_MAX;
-		}
-		else if (direction == SOUTH && wallSquareDown == false)
-		{
-			row++;
-			timer = TIMER_MAX;
-		}
-		else if (direction == EAST && wallSquareRight == false)
-		{
-			col++;
-			timer = TIMER_MAX;
-		}
-		else if (direction == WEST && wallSquareLeft == false)
-		{
-			col--;
-			timer = TIMER_MAX;
-		}
-		else
-		{
-			direction = rand() % 4 + 1;
-			timer = TIMER_MAX;
+			if (direction == NORTH && wallSquareUp == false)
+			{
+				row--;
+				timer = TIMER_MAX;
+			}
+			else if (direction == SOUTH && wallSquareDown == false)
+			{
+				row++;
+				timer = TIMER_MAX;
+			}
+			else if (direction == EAST && wallSquareRight == false)
+			{
+				col++;
+				timer = TIMER_MAX;
+			}
+			else if (direction == WEST && wallSquareLeft == false)
+			{
+				col--;
+				timer = TIMER_MAX;
+			}
+			else
+			{
+				direction = rand() % 4 + 1;
+				timer = TIMER_MAX;
+			}
 		}
 	}
 
+	//Max Position of the x and y axis
+	maxXpos = col * 32.0;
+	maxYpos = row * 32.0;
 
+	//Move the player with fluid Motion
+	if (xPos < maxXpos)
+	{
+		xPos++;	//Right
+	}
+	if (yPos < maxYpos)
+	{
+		yPos++;	//Down
+	}
+	if (xPos > maxXpos)
+	{
+		xPos--;	//Left
+	}
+	if (yPos > maxYpos)
+	{
+		yPos--;	//Right
+	}
 
-	enemySprite.setPosition(pos);
+	enemySprite.setPosition(xPos,yPos);
 }
 
 void EvilSq::checkForWallLeft(bool t_isAWall)

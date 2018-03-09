@@ -18,6 +18,9 @@ class EvilSq
 		int xPos = 0;
 		int yPos = 0;
 
+		int maxXpos = 0;
+		int maxYpos = 0;
+
 		int row = 0;
 		int col = 0;
 
