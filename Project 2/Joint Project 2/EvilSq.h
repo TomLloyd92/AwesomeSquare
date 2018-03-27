@@ -15,14 +15,14 @@ class EvilSq
 
 		sf::Sprite enemySprite;
 
-		int xPos = 0;
-		int yPos = 0;
+		int xPos;
+		int yPos;
 
-		int maxXpos = 0;
-		int maxYpos = 0;
+		int maxXpos;
+		int maxYpos;
 
-		int row = 0;
-		int col = 0;
+		int row;
+		int col;
 
 		bool alive;
 
@@ -60,6 +60,9 @@ class EvilSq
 		void checkForWallDown(bool t_isAWall);
 
 		bool getAlive();
+
+		//Reset Square
+		void resetSquare();
 
 
 };

@@ -10,6 +10,7 @@
 #include "EvilSq.h"   // include EvilSq header file
 #include "WorldSq.h"	//Include World Square Header File
 #include "Globals.h" //include global header file
+#include "PlayerBomb.h"	//include the bomb header
 
 
 class Game
@@ -18,10 +19,6 @@ class Game
 	// put your game objects here eg AwesomeSq object and 1D array of EvilSq objects etc.
 
 	sf::RenderWindow window;
-
-public:
-	sf::Font m_font;  // font for writing text
-	sf::Text m_message;  // text to write on the screen
 
 public:	  // declaration of member functions	
 	Game();  // default constructor
@@ -32,11 +29,25 @@ public:	  // declaration of member functions
 	void	setUpMaze();
 	void	drawMaze();
 
+
 	bool gameSetUp = false;
+	bool controlScreenOn = false;
+
+	int score = 0;
 
 	//Objects
 	WorldSq maze[MAX_SPACES][MAX_SPACES];
 	AwesomeSq player;
 	EvilSq enemys[MAX_NO_ENEMYS];
+	PlayerBomb bomb;
+
+	GameStates gameState = GameStates::PLAYING;
+
+	//Text for Score
+	sf::Font m_font;  // font for writing text
+	sf::Text m_messageScore;
+	sf::Text m_messageReplay;
+	sf::Text m_messageControls;
+	
 };
 

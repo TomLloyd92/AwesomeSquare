@@ -18,3 +18,6 @@ const int WEST = 4;
 
 //Timer
 const int TIMER_MAX = 10;
+
+//GameStates
+enum class GameStates { MAIN_MENU, PLAYING, GAME_OVER, CONTROLS};

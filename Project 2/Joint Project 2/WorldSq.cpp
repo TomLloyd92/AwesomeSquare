@@ -60,7 +60,7 @@ sf::Sprite WorldSq::getSprite()
 	return sf::Sprite(squareSprite);
 }
 
-bool WorldSq::setIsWallSquare(bool t_IsWallSquare)
+void WorldSq::setIsWallSquare(bool t_IsWallSquare)
 {
 	if (t_IsWallSquare == true)
 	{
@@ -70,7 +70,6 @@ bool WorldSq::setIsWallSquare(bool t_IsWallSquare)
 	{
 		isWallSquare = t_IsWallSquare;
 	}
-	return false;
 }
 
 bool WorldSq::getIsWallSquare()

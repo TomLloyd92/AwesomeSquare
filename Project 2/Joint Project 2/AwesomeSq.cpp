@@ -124,6 +124,16 @@ void AwesomeSq::resetAllWallMove()
 	moveWallDown = false;
 }
 
+void AwesomeSq::resetPlayer()
+{
+	xPos = 32;
+	yPos = 32;
+
+	row = 1;
+	col = 1;
+
+}
+
 void AwesomeSq::update()
 {
 	if (timer > 0)

@@ -27,7 +27,7 @@ public:
 	void setPosition(double t_xPos, double t_yPos);
 	sf::Sprite getSprite();
 
-	bool setIsWallSquare(bool t_IsWallSquare);
+	void setIsWallSquare(bool t_IsWallSquare);
 	bool getIsWallSquare();
 
 	//Update

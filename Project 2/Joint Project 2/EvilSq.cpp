@@ -27,7 +27,7 @@ EvilSq::EvilSq()
 	xPos = maxXpos;
 	yPos = maxYpos;
 
-	direction = NORTH;
+	direction = rand() % 4 + 1;
 }
 
 void EvilSq::kill()
@@ -186,4 +186,29 @@ void EvilSq::checkForWallDown(bool t_isAWall)
 bool EvilSq::getAlive()
 {
 	return alive;
+}
+
+void EvilSq::resetSquare()
+{
+	alive = true;
+
+	row = rand() % 12;
+	col = rand() % 12;
+
+	if (row == 0 || row == 11)
+	{
+		row = 5;
+	}
+
+	if (col == 0 || col == 11)
+	{
+		col = 5;
+	}
+	maxXpos = col * 32.0;
+	maxYpos = row * 32.0;
+
+	xPos = maxXpos;
+	yPos = maxYpos;
+
+	direction = rand() % 4 + 1;
 }

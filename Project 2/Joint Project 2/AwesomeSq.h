@@ -73,6 +73,9 @@ public:
 
 	void resetAllWallMove();
 
+	//Reset Player
+	void resetPlayer();
+
 	//Update
 	void update();
 };
