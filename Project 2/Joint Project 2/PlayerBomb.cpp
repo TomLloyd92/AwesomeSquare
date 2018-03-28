@@ -35,14 +35,29 @@ void PlayerBomb::setCol(int t_col)
 	col = t_col;
 }
 
-void PlayerBomb::setBombAlive()
+void PlayerBomb::setBombAlive(bool t_bombAlive)
 {
-	bombAlive = true;
+	bombAlive = t_bombAlive;
+}
+
+int PlayerBomb::getRow()
+{
+	return row;
+}
+
+int PlayerBomb::getCol()
+{
+	return col;
 }
 
 bool PlayerBomb::getBombAlive()
 {
 	return bombAlive;
+}
+
+void PlayerBomb::update()
+{
+	bombSprite.setPosition(col * 32, row * 32);
 }
 
 sf::Sprite PlayerBomb::getSprite()

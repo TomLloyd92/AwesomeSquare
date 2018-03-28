@@ -1,5 +1,3 @@
-﻿  PlayerBomb.cpp
-  Game.cpp
+﻿  Game.cpp
 c:\users\tomll\all github\awesomesquare\project 2\joint project 2\game.cpp(84): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Generating Code...
   Joint Project 2.vcxproj -> C:\Users\tomll\All GitHub\AwesomeSquare\Project 2\Debug\Joint Project 2.exe

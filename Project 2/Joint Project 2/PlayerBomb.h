@@ -29,9 +29,14 @@ public:
 	//default constructor
 	PlayerBomb();
 
+	//Setting Bombs Position/Alive
 	void setRow(int t_row);
 	void setCol(int t_col);
-	void setBombAlive();
+	void setBombAlive(bool t_bombAlive);
+
+	//Getting Bombs Position
+	int getRow();
+	int getCol();
 
 	bool getBombAlive();
 

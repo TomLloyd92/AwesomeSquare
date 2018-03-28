@@ -117,23 +117,24 @@ void Game::run()
 }
 
 void Game::update()
-{
-
+{		
+		//Initial Setup of Maze
 		if (gameSetUp == false)
 		{
 			setUpMaze();
 		}
+
 		//Setting Up Maze
 		for (int row = 0; row < MAX_SPACES; row++)
 		{
 			for (int col = 0; col < MAX_SPACES; col++)
 			{
 				{
-					maze[row][col].update();	//Update the Square at that point
-					maze[row][col].setPosition(col, row);	//Set the position of each square
+					maze[row][col].update();
+					maze[row][col].setPosition(col, row);	
 				}
 			}
-		}//END nested loop for maze Update and Set Positions
+		}
 
 		//Moving the Walls
 		if (player.getMoveWallLeft() == true)
@@ -164,28 +165,29 @@ void Game::update()
 			player.resetAllWallMove();
 		}
 
-		//Player update
+		//Player Alive
 		if (player.getAlive() == true)
 		{
-			player.update();	//Update the Player
+			//Player update
+			player.update();
 			
 			m_messageScore.setString("Score:" + std::to_string(score)); //Set Score
 			m_messageScore.setPosition(5, 5);
 
 			//Checking surrounding squares
-			player.checkForWallLeft(maze[player.getRow()][player.getCol() - 1].getIsWallSquare());	//Checking for walls LEFT
-			player.checkForWallRight(maze[player.getRow()][player.getCol() + 1].getIsWallSquare());	//Checking for walls RIGHT
-			player.checkForWallUp(maze[player.getRow() - 1][player.getCol()].getIsWallSquare());	//checlomg for walls UP
-			player.checkForWallDown(maze[player.getRow() + 1][player.getCol()].getIsWallSquare());	//checking for walls DOWN
+			player.checkForWallLeft(maze[player.getRow()][player.getCol() - 1].getIsWallSquare());	//LEFT
+			player.checkForWallRight(maze[player.getRow()][player.getCol() + 1].getIsWallSquare());	//RIGHT
+			player.checkForWallUp(maze[player.getRow() - 1][player.getCol()].getIsWallSquare());	//UP
+			player.checkForWallDown(maze[player.getRow() + 1][player.getCol()].getIsWallSquare());	//DOWN
 
 			//Enemy Update
 			for (int i = 0; i < MAX_NO_ENEMYS; i++)
 			{
 				{
-					enemys[i].checkForWallLeft(maze[enemys[i].getRow()][enemys[i].getCol() - 1].getIsWallSquare());		//Checking for Walls Left
-					enemys[i].checkForWallRight(maze[enemys[i].getRow()][enemys[i].getCol() + 1].getIsWallSquare());	//Checking for Walls Right
-					enemys[i].checkForWallUp(maze[enemys[i].getRow() - 1][enemys[i].getCol()].getIsWallSquare());		//Checking for Walls Up
-					enemys[i].checkForWallDown(maze[enemys[i].getRow() + 1][enemys[i].getCol()].getIsWallSquare());		//Checking for Walls Down
+					enemys[i].checkForWallLeft(maze[enemys[i].getRow()][enemys[i].getCol() - 1].getIsWallSquare());		//Left
+					enemys[i].checkForWallRight(maze[enemys[i].getRow()][enemys[i].getCol() + 1].getIsWallSquare());	//Right
+					enemys[i].checkForWallUp(maze[enemys[i].getRow() - 1][enemys[i].getCol()].getIsWallSquare());		//Up
+					enemys[i].checkForWallDown(maze[enemys[i].getRow() + 1][enemys[i].getCol()].getIsWallSquare());		//Down
 
 					if (enemys[i].getAlive() == true)
 					{
@@ -206,6 +208,7 @@ void Game::update()
 				}
 			}
 
+			//Collision Enemy and Wall Square
 			for (int i = 0; i < MAX_NO_ENEMYS; i++)
 			{
 				int row = enemys[i].getRow();
@@ -222,16 +225,102 @@ void Game::update()
 				}
 			}
 
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+			//Drop Bomb
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::B))
 			{
-				bomb.setBombAlive();
+				bomb.setRow(player.getRow());
+				bomb.setCol(player.getCol());
+				bomb.setBombAlive(true);
+			}
+
+			//Bomb Active
+			if (bomb.getBombAlive() == true)
+			{
+				bomb.update();
+
+				bombTimer++;
+
+				if (bombTimer == 180)	//Bomb timer till explosion (3 seconds)
+				{
+						explosionBlast[0].setExplosionAlive(true);
+						explosionBlast[0].setRow(bomb.getRow());
+						explosionBlast[0].setCol(bomb.getCol());
+
+					bomb.setBombAlive(false);
+					bombTimer = 0;
+				}
+			}
+
+			//Explosion Active
+			if (explosionBlast[0].getExplosionAlive() == true)
+			{
+				explosionTimer++;
+
+				if (maze[explosionBlast[0].getRow() - 1][explosionBlast[0].getCol()].getIsWallSquare() == false)
+				{
+					explosionBlast[1].setExplosionAlive(true);
+					explosionBlast[1].setRow(explosionBlast[0].getRow() - 1);
+					explosionBlast[1].setCol(explosionBlast[0].getCol());
+				}
+
+				if (maze[explosionBlast[0].getRow() + 1][explosionBlast[0].getCol()].getIsWallSquare() == false)
+				{
+					explosionBlast[2].setExplosionAlive(true);
+					explosionBlast[2].setRow(explosionBlast[0].getRow() + 1);
+					explosionBlast[2].setCol(explosionBlast[0].getCol());
+				}
+
+				if (maze[explosionBlast[0].getRow()][explosionBlast[0].getCol() + 1].getIsWallSquare() == false)
+				{
+					explosionBlast[3].setExplosionAlive(true);
+					explosionBlast[3].setRow(explosionBlast[0].getRow());
+					explosionBlast[3].setCol(explosionBlast[0].getCol() + 1);
+				}
+
+				if (maze[explosionBlast[0].getRow()][explosionBlast[0].getCol() - 1].getIsWallSquare() == false)
+				{
+					explosionBlast[4].setExplosionAlive(true);
+					explosionBlast[4].setRow(explosionBlast[0].getRow());
+					explosionBlast[4].setCol(explosionBlast[0].getCol() - 1);
+				}
+
+				for (int i = 0; i < MAX_EXPLOSION; i++)
+				{
+					explosionBlast[i].update();
+				}
+
+				if (explosionTimer == 30)
+				{
+					for (int i = 0; i < MAX_EXPLOSION; i++)
+					{
+						explosionBlast[i].setExplosionAlive(false);
+						explosionTimer = 0;
+					}
+				}
+
+
+				//Collision With Explosion
+				for (int index1 = 0; index1 < MAX_EXPLOSION; index1++)
+				{
+
+					for (int index2 = 0; index2 < MAX_NO_ENEMYS; index2++)
+					{
+						if (explosionBlast[index1].getCol() == enemys[index2].getCol() && explosionBlast[index1].getRow() == enemys[index2].getRow())
+						{
+							enemys[index2].kill();
+						}
+					}
+				}
 			}
 		}
+
+		//Player Killed
 		else if (player.getAlive() == false)
 		{
 			m_messageScore.setPosition(120, 250);
 			m_messageScore.setCharacterSize(50);
 
+			//Restart the Game
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
 			{
 				player.isAlive(true);
@@ -274,13 +363,12 @@ void Game::draw()
 
 	if (player.getAlive() == true)
 	{
-
-		//Nested for loop of the maze
-		for (int row = 0; row < MAX_SPACES; row++)	//Go Through Every Row
+		//Draw Maze
+		for (int row = 0; row < MAX_SPACES; row++)
 		{
-			for (int col = 0; col < MAX_SPACES; col++)	//Go Through Every Col
+			for (int col = 0; col < MAX_SPACES; col++)
 			{
-				window.draw(maze[row][col].getSprite());	//Draw The square at that point
+				window.draw(maze[row][col].getSprite());
 			}
 		}//END nested loop for maze Drawing
 
@@ -295,6 +383,21 @@ void Game::draw()
 
 		//Draw Player
 		window.draw(player.getSprite());
+
+		//Draw Bomb
+		if (bomb.getBombAlive() == true)
+		{
+			window.draw(bomb.getSprite());
+		}
+
+		//Draw Explosion
+		for (int i = 0; i < MAX_EXPLOSION; i++)
+		{
+			if (explosionBlast[i].getExplosionAlive() == true)
+			{
+				window.draw(explosionBlast[i].getSprite());
+			}
+		}
 	}
 
 	if (player.getAlive() == false)
