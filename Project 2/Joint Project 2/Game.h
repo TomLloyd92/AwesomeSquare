@@ -37,10 +37,17 @@ private:
 	//Levels and Setup
 	bool gameSetUp = false;
 
+	bool anyEnemysAlive = true;
+
 	//Game Varibles
 	int bombTimer = 0;
 	int explosionTimer = 0;
 	int score = 0;
+	int gameLevel = 1;
+	
+	//Reset
+	void resetEnemys();
+	void clearAllSquares();
 
 	//Window
 	sf::RenderWindow window;
@@ -51,8 +58,12 @@ public:
 	void	run();
 	void	update();
 	void	draw();
-	void	setUpMaze();
+	void	setUpMaze1();
+	void	setUpMaze2();
+
 	void	drawMaze();
+	bool	enemysAlive();
+
 	
 };
 

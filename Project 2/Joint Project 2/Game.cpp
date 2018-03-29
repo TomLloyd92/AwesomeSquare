@@ -119,9 +119,14 @@ void Game::run()
 void Game::update()
 {		
 		//Initial Setup of Maze
-		if (gameSetUp == false)
+		if (gameSetUp == false && gameLevel == 1)
 		{
-			setUpMaze();
+			setUpMaze1();
+		}
+		if (gameSetUp == false && gameLevel == 2)
+		{
+			setUpMaze2();
+			gameSetUp = true;
 		}
 
 		//Setting Up Maze
@@ -194,6 +199,18 @@ void Game::update()
 						enemys[i].update();	//Update all the enemys
 					}
 				}
+			}
+
+			//Enemys Alive Check
+			anyEnemysAlive = enemysAlive();
+
+			if (anyEnemysAlive == false)
+			{
+				gameLevel = 2;
+				player.resetPlayer();
+				resetEnemys();
+				clearAllSquares();
+				gameSetUp = false;
 			}
 
 			//Collision Player and Enemys
@@ -328,22 +345,13 @@ void Game::update()
 
 				m_messageScore.setCharacterSize(24);
 				
-				for (int i = 0; i < MAX_NO_ENEMYS; i++)
-				{
-					enemys[i].resetSquare();
-				}
-
-				for (int row = 0; row < MAX_SPACES; row++)	//Clear all squares to alow the level to be rebuilt
-				{
-					for (int col = 0; col < MAX_SPACES; col++)
-					{
-						maze[row][col].setIsWallSquare(false);
-					}
-				}
+				resetEnemys();
+				clearAllSquares();
 
 				gameSetUp = false;	//Will now rebuild the level
 				controlScreenOn = false;
 
+				gameLevel = 1;
 				score = 0;
 			}
 
@@ -419,7 +427,7 @@ void Game::draw()
 	window.display();
 }
 
-void Game::setUpMaze()
+void Game::setUpMaze1()
 {
 	//Set up outside walls
 	for (int row = 0, col = 0; col < MAX_SPACES; col++)	//Set up Top Wall
@@ -455,8 +463,76 @@ void Game::setUpMaze()
 	gameSetUp = true;
 }
 
+void Game::setUpMaze2()
+{
+	//Set up outside walls
+	for (int row = 0, col = 0; col < MAX_SPACES; col++)	//Set up Top Wall
+	{
+		maze[row][col].setIsWallSquare(true);
+	}
+	for (int row = 0, col = MAX_SPACES - 1; row < MAX_SPACES; row++)
+	{
+		maze[row][col].setIsWallSquare(true);
+	}
+	for (int row = MAX_SPACES - 1, col = 0; col < MAX_SPACES; col++)
+	{
+		maze[row][col].setIsWallSquare(true);
+	}
+	for (int row = 0, col = 0; row < MAX_SPACES; row++)
+	{
+		maze[row][col].setIsWallSquare(true);
+	}//End Outside Walls
+
+	//Internal Walls
+	for (int row = 3, col = 3; col < 9; col++)
+	{
+		maze[row][col].setIsWallSquare(true);
+	}
+	for (int row = 6, col = 3; col < 9; col++)
+	{
+		maze[row][col].setIsWallSquare(true);
+	}
+	for (int row = 9, col = 3; col < 9; col++)
+	{
+		maze[row][col].setIsWallSquare(true);
+	}//end Internal Maze
+}
+
 
 void Game::drawMaze()
 {
 
+}
+
+bool Game::enemysAlive()
+{
+	bool enemyAlive = false;
+
+		for (int i = 0; i < MAX_NO_ENEMYS; i++)
+	{
+		if (enemys[i].getAlive() == true)
+		{
+			enemyAlive = true;
+		}
+	}
+	return enemyAlive;
+}
+
+void Game::resetEnemys()
+{
+	for (int i = 0; i < MAX_NO_ENEMYS; i++)
+	{
+		enemys[i].resetSquare();
+	}
+}
+
+void Game::clearAllSquares()
+{
+	for (int row = 0; row < MAX_SPACES; row++)	//Clear all squares to alow the level to be rebuilt
+	{
+		for (int col = 0; col < MAX_SPACES; col++)
+		{
+			maze[row][col].setIsWallSquare(false);
+		}
+	}
 }
