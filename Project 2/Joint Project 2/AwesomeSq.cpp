@@ -209,19 +209,19 @@ void AwesomeSq::update()
 		//as long as row or col isnt = to 0
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 		{
-			if (direction == WEST && wallSquareLeft == true)
+			if (direction == WEST && wallSquareLeft == true && col > 1)
 			{
 				moveWallLeft = true;
 			}
-			if (direction == NORTH && wallSquareUp == true)
+			if (direction == NORTH && wallSquareUp == true && row > 1)
 			{
 				moveWallUp = true;
 			}
-			if (direction == EAST && wallSquareRight == true)
+			if (direction == EAST && wallSquareRight == true && col < 10)
 			{
 				moveWallRight = true;
 			}
-			if (direction == SOUTH && wallSquareDown == true)
+			if (direction == SOUTH && wallSquareDown == true && row < 10)
 			{
 				moveWallDown = true;
 			}

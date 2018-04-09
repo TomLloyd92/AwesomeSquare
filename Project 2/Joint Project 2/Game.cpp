@@ -128,6 +128,11 @@ void Game::update()
 			setUpMaze2();
 			gameSetUp = true;
 		}
+		if (gameSetUp == false && gameLevel == 3)
+		{
+			setUpMaze3();
+			gameSetUp = true;
+		}
 
 		//Setting Up Maze
 		for (int row = 0; row < MAX_SPACES; row++)
@@ -206,7 +211,17 @@ void Game::update()
 
 			if (anyEnemysAlive == false)
 			{
-				gameLevel = 2;
+
+				if (gameLevel == 1)
+				{
+					gameLevel = 2;
+				}
+				else if (gameLevel == 2)
+				{
+					gameLevel = 3;
+				}
+
+
 				player.resetPlayer();
 				resetEnemys();
 				clearAllSquares();
@@ -255,7 +270,7 @@ void Game::update()
 			{
 				bomb.update();
 
-				bombTimer++;
+				bombTimer++;	//Bomb Timer
 
 				if (bombTimer == 180)	//Bomb timer till explosion (3 seconds)
 				{
@@ -264,16 +279,16 @@ void Game::update()
 						explosionBlast[0].setCol(bomb.getCol());
 
 					bomb.setBombAlive(false);
-					bombTimer = 0;
+					bombTimer = 0;	//Reset Timer When Exploded
 				}
 			}
 
 			//Explosion Active
 			if (explosionBlast[0].getExplosionAlive() == true)
 			{
-				explosionTimer++;
+				explosionTimer++;	//Timer Increase 
 
-				if (maze[explosionBlast[0].getRow() - 1][explosionBlast[0].getCol()].getIsWallSquare() == false)
+				if (maze[explosionBlast[0].getRow() - 1][explosionBlast[0].getCol()].getIsWallSquare() == false)	//Explosion to adjacent squares if no wallsq.
 				{
 					explosionBlast[1].setExplosionAlive(true);
 					explosionBlast[1].setRow(explosionBlast[0].getRow() - 1);
@@ -319,7 +334,6 @@ void Game::update()
 				//Collision With Explosion
 				for (int index1 = 0; index1 < MAX_EXPLOSION; index1++)
 				{
-
 					for (int index2 = 0; index2 < MAX_NO_ENEMYS; index2++)
 					{
 						if (explosionBlast[index1].getCol() == enemys[index2].getCol() && explosionBlast[index1].getRow() == enemys[index2].getRow())
@@ -497,6 +511,44 @@ void Game::setUpMaze2()
 		maze[row][col].setIsWallSquare(true);
 	}//end Internal Maze
 }
+
+void Game::setUpMaze3()
+{
+	//Set up outside walls
+	for (int row = 0, col = 0; col < MAX_SPACES; col++)	//Set up Top Wall
+	{
+		maze[row][col].setIsWallSquare(true);
+	}
+	for (int row = 0, col = MAX_SPACES - 1; row < MAX_SPACES; row++)
+	{
+		maze[row][col].setIsWallSquare(true);
+	}
+	for (int row = MAX_SPACES - 1, col = 0; col < MAX_SPACES; col++)
+	{
+		maze[row][col].setIsWallSquare(true);
+	}
+	for (int row = 0, col = 0; row < MAX_SPACES; row++)
+	{
+		maze[row][col].setIsWallSquare(true);
+	}//End Outside Walls
+
+	maze[3][1].setIsWallSquare(true);
+	maze[3][4].setIsWallSquare(true);
+	maze[3][7].setIsWallSquare(true);
+	maze[3][10].setIsWallSquare(true);
+	maze[1][2].setIsWallSquare(true);
+	maze[1][5].setIsWallSquare(true);
+	maze[1][8].setIsWallSquare(true);
+	maze[6][1].setIsWallSquare(true);
+	maze[6][4].setIsWallSquare(true);
+	maze[6][7].setIsWallSquare(true);
+	maze[6][10].setIsWallSquare(true);
+	maze[9][2].setIsWallSquare(true);
+	maze[9][5].setIsWallSquare(true);
+	maze[9][8].setIsWallSquare(true);
+}
+
+
 
 
 void Game::drawMaze()

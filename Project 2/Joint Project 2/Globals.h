@@ -8,7 +8,7 @@ const int WORLD_SQUARE = 1;
 const int MAX_SPACES = 12;
 
 //Maximum Number Of Enemys
-const int MAX_NO_ENEMYS = 1;
+const int MAX_NO_ENEMYS = 3;
 
 //Maximum Explosions
 const int MAX_EXPLOSION = 5;

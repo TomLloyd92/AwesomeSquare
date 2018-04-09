@@ -60,6 +60,7 @@ public:
 	void	draw();
 	void	setUpMaze1();
 	void	setUpMaze2();
+	void	setUpMaze3();
 
 	void	drawMaze();
 	bool	enemysAlive();

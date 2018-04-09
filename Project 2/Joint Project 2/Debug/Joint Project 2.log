@@ -1,3 +1,13 @@
-﻿  Game.cpp
-c:\users\tomll\all github\awesomesquare\project 2\joint project 2\game.cpp(84): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Joint Project 2.vcxproj -> C:\Users\tomll\All GitHub\AwesomeSquare\Project 2\Debug\Joint Project 2.exe
+﻿  EvilSq.cpp
+c:\users\c00231308\awesomesquare\project 2\joint project 2\evilsq.cpp(23): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\c00231308\awesomesquare\project 2\joint project 2\evilsq.cpp(24): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\c00231308\awesomesquare\project 2\joint project 2\evilsq.cpp(75): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\c00231308\awesomesquare\project 2\joint project 2\evilsq.cpp(76): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\c00231308\awesomesquare\project 2\joint project 2\evilsq.cpp(77): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\c00231308\awesomesquare\project 2\joint project 2\evilsq.cpp(154): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\c00231308\awesomesquare\project 2\joint project 2\evilsq.cpp(155): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\c00231308\awesomesquare\project 2\joint project 2\evilsq.cpp(175): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\c00231308\awesomesquare\project 2\joint project 2\evilsq.cpp(219): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\c00231308\awesomesquare\project 2\joint project 2\evilsq.cpp(220): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  Joint Project 2.vcxproj -> C:\Users\c00231308\AwesomeSquare\Project 2\Debug\Joint Project 2.exe
+  Joint Project 2.vcxproj -> C:\Users\c00231308\AwesomeSquare\Project 2\Debug\Joint Project 2.pdb (Partial PDB)

@@ -7,7 +7,6 @@ EvilSq::EvilSq()
 	//Setup Sprites/textures
 	setup();
 
-	alive = true;
 
 	row = rand() % 12;
 	col = rand() % 12;
@@ -28,6 +27,7 @@ EvilSq::EvilSq()
 	yPos = maxYpos;
 
 	direction = rand() % 4 + 1;
+	alive = true;
 }
 
 void EvilSq::kill()
@@ -48,25 +48,21 @@ void EvilSq::loadTextures()
 	{
 		std::cout << "Load Failed: Player Up!" << std::endl;
 	}
-
-	/*
-	//Down
-	if (!enemyTextureDown.loadFromFile("ASSETS/Sprites/enemySquare.png"))
+	
+	if (!enemyTextureDown.loadFromFile("ASSETS/Sprites/BeeBack.png"))
 	{
 		std::cout << "Load Failed: Player Down!" << std::endl;
 	}
-	//Right
-	if (!enemyTextureRight.loadFromFile("ASSETS/Sprites/enemySqaure.png"))
+	
+	if (!enemyTextureRight.loadFromFile("ASSETS/Sprites/BeeRight.png"))
 	{
 		std::cout << "Load Failed: Player Right!" << std::endl;
 	}
 	//Left
-	if (!enemyTextureLeft.loadFromFile("ASSETS/Sprites/enemySquare.png"))
+	if (!enemyTextureLeft.loadFromFile("ASSETS/Sprites/BeeLeft.png"))
 	{
 		std::cout << "Load Failed: Player Left!" << std::endl;
 	}
-	*/
-
 }
 
 void EvilSq::setSprite()
@@ -98,9 +94,25 @@ sf::Sprite EvilSq::getSprite()
 
 void EvilSq::update()
 {
+	//Set Sprites
+	if (direction == NORTH)
+	{
+		enemySprite.setTexture(enemyTextureUp);
+	}
+	else if (direction == SOUTH)
+	{
+		enemySprite.setTexture(enemyTextureDown);
+	}
+	else if (direction == EAST)
+	{
+		enemySprite.setTexture(enemyTextureRight);
+	}
+	else if (direction == WEST)
+	{
+		enemySprite.setTexture(enemyTextureLeft);
+	}
 
-	//sf::Vector2f pos = { (col * 32.0f), (row * 32.0f) };
-
+	//Timer
 	if (timer > 0)
 	{
 		timer--;
